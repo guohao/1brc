@@ -43,7 +43,9 @@ public class CalculateAverage_guohao {
         private double round(double value) {
             return Math.round(value * 10.0) / 10.0;
         }
-    };
+    }
+
+    ;
 
     private static class MeasurementAggregator {
         private double min = Double.POSITIVE_INFINITY;
@@ -76,6 +78,7 @@ public class CalculateAverage_guohao {
 
         Map<String, ResultRow> measurements = new TreeMap<>(Files.lines(Paths.get(FILE))
                 .map(l -> new Measurement(l.split(";")))
+                .parallel()
                 .collect(groupingBy(Measurement::station, collector)));
 
         System.out.println(measurements);
